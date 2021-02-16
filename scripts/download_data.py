@@ -48,12 +48,11 @@ from urllib.parse import urljoin
 import requests
 
 # Constants
-URLROOT = 'https://mcdevitt-deeplearn/david/deep-hipsc-tracking/uploads/'
+URLROOT = 'https://github.com/david-a-joy/deep-hipsc-tracking/releases/download/data/'
 THISDIR = pathlib.Path(__file__).parent.resolve()
 ROOTDIR = THISDIR.parent / 'deep_hipsc_tracking' / 'data'
 
 # Classes
-
 
 class DataDownloader(object):
     """ Store metadata and urls for downloading data
@@ -65,22 +64,22 @@ class DataDownloader(object):
     """
 
     # Individual download links
-    weights_url = '721283bba507ffee9d7746831388da36/weights.zip'
+    weights_url = 'weights.zip'
     weights_sha1 = 'd23762e9daa72003825e23916858d4360c04c80f'
     weights_size = 207761898
     weights_filename = 'weights.zip'
 
-    training_inverted_url = 'c82b0d66bfda083352a46073efaf1cd6/training_inverted.zip'
+    training_inverted_url = 'training_inverted.zip'
     training_inverted_size = 416145256
     training_inverted_sha1 = '469212a7cbd76ce84dd84aab46ba392ae2d2d0e6'
     training_inverted_filename = 'training_inverted.zip'
 
-    training_confocal_url = 'd8d8e8c2036c384493580ceadfff0fb5/training_confocal.zip'
+    training_confocal_url = 'training_confocal.zip'
     training_confocal_size = 237216110
     training_confocal_sha1 = 'a20734857ed14f7b099dc1623eee5f79baedf10d'
     training_confocal_filename = 'training_confocal.zip'
 
-    example_confocal_url = '22a9459dcb13bd50abf344dd4129fb64/example_confocal.zip'
+    example_confocal_url = 'example_confocal.zip'
     example_confocal_size = 177108473
     example_confocal_sha1 = 'b809ea3fc02095627be377313e38194dd9d9fc20'
     example_confocal_filename = 'example_confocal.zip'
@@ -90,7 +89,7 @@ class DataDownloader(object):
         self.rootdir = rootdir.resolve()
         self.urlroot = urlroot
 
-        self.verify_ssl = False
+        self.verify_ssl = True
 
     def download(self, data_set: str,
                  chunk_size: int = 8192):
