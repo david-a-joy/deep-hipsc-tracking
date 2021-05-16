@@ -80,7 +80,7 @@ cdef _center_of_polygon(np.ndarray[FLOAT_TYPE_t, ndim=2] verts):
     cy = 1/(6*area) * np.sum(cy_prod)
     return cx, cy
 
-  
+
 cdef _sort_coordinates(np.ndarray[FLOAT_TYPE_t, ndim=2] coords):
     """ Sort the coordinates in a polygon
 
@@ -120,7 +120,7 @@ cdef merge_points_cluster(np.ndarray[FLOAT_TYPE_t, ndim=2] points1,
         A single merged point set
     """
     cdef np.ndarray[FLOAT_TYPE_t, ndim=2] points
-    cdef np.ndarray[INT_TYPE_t, ndim=1] ind
+    cdef np.ndarray[np.npy_intp, ndim=1] ind
     cdef np.ndarray inds
     cdef list clusters, unused_inds
     cdef set used

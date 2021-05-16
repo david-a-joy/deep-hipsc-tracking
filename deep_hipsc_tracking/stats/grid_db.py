@@ -1418,8 +1418,8 @@ class GridDB(object):
         assert timepoint_points.shape[1] == 3
         assert timepoint_triangles.shape[1] == 3
 
-        return calc_average_tri_density(timepoint_points[:, :2],
-                                        timepoint_triangles,
+        return calc_average_tri_density(timepoint_points[:, :2].astype(np.float64),
+                                        timepoint_triangles.astype(np.int64),
                                         timepoint_points.shape[0],
                                         timepoint_triangles.shape[0])
 
@@ -1443,13 +1443,13 @@ class GridDB(object):
 
         timepoint_links = np.array(list(self.timepoint_links[timepoint1, timepoint2].items()))
 
-        return calc_average_segment_divergence(density1,
-                                               density2,
-                                               timepoint_links,
+        return calc_average_segment_divergence(density1.astype(np.float64),
+                                               density2.astype(np.float64),
+                                               timepoint_links.astype(np.int64),
                                                density1.shape[0],
                                                density2.shape[0],
                                                timepoint_links.shape[0],
-                                               self.time_scale)
+                                               float(self.time_scale))
 
     def calc_average_segment_angle(self, timepoint1: int, timepoint2: int):
         """ Average curl using meshes
@@ -1479,8 +1479,8 @@ class GridDB(object):
         timepoint_links = self.timepoint_links[timepoint1, timepoint2]
         timepoint_mesh = self.timepoint_meshes[timepoint1]
 
-        return calc_average_segment_angle(timepoint1_points[:, :2],
-                                          timepoint2_points[:, :2],
+        return calc_average_segment_angle(timepoint1_points[:, :2].astype(np.float64),
+                                          timepoint2_points[:, :2].astype(np.float64),
                                           timepoint_mesh,
                                           timepoint_links,
                                           timepoint1_points.shape[0],

@@ -49,6 +49,8 @@ class EnsembleDetectCells(object):
         rootdir = pathlib.Path(rootdir).resolve()
         config_file = pathlib.Path(config_file).resolve()
 
+        self.python_bin = pathlib.Path(sys.executable)
+
         self.rootdir = rootdir
         self.config_file = config_file
         self.timing_log_file = self.rootdir / 'SingleCell-timing-composite.txt'
@@ -201,15 +203,18 @@ class EnsembleDetectCells(object):
             else:
                 raise OSError(f'Cannot overwrite timing data {timing_log_file}')
 
-        cmd = [THISDIR / 'detect_cells.py',
-               '--config-file', self.config_file,
-               '--load-snapshot', snapshot_dir,
-               '--image-dir', self.rootdir / 'Corrected',
-               '--save-plots',
-               '--composite-transforms', 'none',
-               '--detector', detector,
-               '--plot-timing-log-file', timing_log_file,
-               '0']
+        cmd = [
+            self.python_bin,
+            THISDIR / 'detect_cells.py',
+            '--config-file', self.config_file,
+            '--load-snapshot', snapshot_dir,
+            '--image-dir', self.rootdir / 'Corrected',
+            '--save-plots',
+            '--composite-transforms', 'none',
+            '--detector', detector,
+            '--plot-timing-log-file', timing_log_file,
+            '0',
+        ]
 
         self.timestamps[(detector, 'start')] = time.time()
         call(cmd)
@@ -248,6 +253,7 @@ class EnsembleDetectCells(object):
                 raise OSError(f'Cannot overwrite timing file {timing_log_file}')
 
         cmd = [
+            self.python_bin,
             THISDIR / 'composite_cells.py',
             '--config-file', self.config_file,
         ]

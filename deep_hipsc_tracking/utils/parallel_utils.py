@@ -129,7 +129,7 @@ class Hypermap(object):
                 return self._pool.imap_unordered(function, iterable)
             else:
                 # Have to do async + get to prevent a timeout bug
-                return self._pool.map_async(function, iterable).get(9999999)
+                return self._pool.map_async(function, iterable).get()
         else:
             # Simulate the sequence of initialize once, then map
             if self.initializer is not None:

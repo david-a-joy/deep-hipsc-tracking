@@ -27,8 +27,10 @@ class TestPipelineStages(unittest.TestCase):
 
     def test_can_instantiate_class(self):
 
-        obj = pipeline.ImagePipeline(pathlib.Path('/fake'))
+        basedir = pathlib.Path('fake')
+
+        obj = pipeline.ImagePipeline(basedir)
 
         self.assertEqual(obj.script_dir.name, 'scripts')
-        self.assertEqual(obj.log_file, pathlib.Path('/fake/deep_tracking.log'))
-        self.assertEqual(obj.config_file, pathlib.Path('/fake/deep_tracking.ini'))
+        self.assertEqual(obj.log_file, basedir / 'deep_tracking.log')
+        self.assertEqual(obj.config_file, basedir / 'deep_tracking.ini')

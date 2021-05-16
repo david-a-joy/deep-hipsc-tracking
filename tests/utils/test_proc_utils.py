@@ -16,7 +16,9 @@ class TestCall(FileSystemTestCase):
 
     def test_calls_a_simple_function(self):
 
-        cmd = ['touch', self.tempdir / 'hi.txt']
+        infile = self.tempdir / 'hi.txt'
+        infile = str(infile).replace('\\', '\\\\')
+        cmd = ['python', '-c', f"open('{infile}', 'wt')"]
 
         proc_utils.call(cmd)
 
@@ -24,7 +26,7 @@ class TestCall(FileSystemTestCase):
 
     def test_runs_commands_silently_if_asked(self):
 
-        cmd = ['echo', 12]
+        cmd = ['python', '-c', 'print(12)']
         with record_stdout() as rec:
             proc_utils.call(cmd, quiet=True)
 
@@ -32,7 +34,9 @@ class TestCall(FileSystemTestCase):
 
     def test_calls_a_simple_function_dry_run(self):
 
-        cmd = ['touch', self.tempdir / 'hi.txt']
+        infile = self.tempdir / 'hi.txt'
+        infile = str(infile).replace('\\', '\\\\')
+        cmd = ['python', '-c', f"open('{infile}', 'wt')"]
 
         proc_utils.call(cmd, dry_run=True)
 

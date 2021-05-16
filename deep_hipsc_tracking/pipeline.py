@@ -11,6 +11,7 @@ Classes:
 """
 
 # Standard lib
+import sys
 import time
 import shutil
 import pathlib
@@ -155,6 +156,8 @@ class ImagePipeline(object):
         self.suffix = suffix
 
         # Paths
+        self.python_bin = pathlib.Path(sys.executable)
+
         self.raw_data_dir = rootdir / 'RawData'
         self.extract_frames_dir = rootdir / 'Corrected'
         self.detect_cells_dir = rootdir / 'SingleCell'
@@ -268,7 +271,7 @@ class ImagePipeline(object):
             The string arguments to the script to call
         """
 
-        cmd = ('python3', self.script_dir / args[0]) + args[1:]
+        cmd = (self.python_bin, self.script_dir / args[0]) + args[1:]
         if self.dry_run:
             print_cmd(cmd)
             return

@@ -36,6 +36,7 @@ _templates
 *.so
 *.rlib
 *.dll
+*.pyd
 
 ## Executables
 *.exe

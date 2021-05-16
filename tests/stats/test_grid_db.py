@@ -677,8 +677,8 @@ class TestCalcAverageTriDensity(unittest.TestCase):
             [4, 5, 6],  # Single triangle area == 6.0
         ])
 
-        res = _grid_db.calc_average_tri_density(timepoint_points,
-                                                timepoint_triangles,
+        res = _grid_db.calc_average_tri_density(timepoint_points.astype(np.float64),
+                                                timepoint_triangles.astype(np.int64),
                                                 timepoint_points.shape[0],
                                                 timepoint_triangles.shape[0])
         exp = np.array([0.5, 1.0, 1.0, 1.5, 6.0, 6.0, 6.0])
@@ -697,7 +697,13 @@ class TestCalcAverageSegmentDivergence(unittest.TestCase):
         ])
 
         res1, res2 = _grid_db.calc_average_segment_divergence(
-            areas1, areas2, links, areas1.shape[0], areas2.shape[0], links.shape[0], 0.5)
+            areas1.astype(np.float64),
+            areas2.astype(np.float64),
+            links.astype(np.int64),
+            areas1.shape[0],
+            areas2.shape[0],
+            links.shape[0],
+            0.5)
 
         exp1 = np.array([
             2.0, -2.0, np.nan,

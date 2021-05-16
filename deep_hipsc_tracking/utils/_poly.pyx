@@ -227,7 +227,7 @@ def _warp_to_circle(np.ndarray[np.float64_t, ndim=2] coords,
     cdef np.ndarray[np.float64_t, ndim=1] theta, radius, theta_grid, radius_grid
     cdef np.ndarray[np.float64_t, ndim=1] radius_coords, theta_coords, radius_warp
 
-    cdef np.ndarray[long, ndim=1] index
+    cdef np.ndarray[np.npy_intp, ndim=1] index
 
     cdef float theta_step, t_interp, i_pos, lower_weight, upper_weight, r_outer
     cdef int i_lower, i_upper, i
@@ -297,7 +297,7 @@ def _inv_warp_to_circle(np.ndarray[np.float64_t, ndim=2] coords,
    cdef np.ndarray[np.float64_t, ndim=1] theta, radius, theta_grid, radius_grid
    cdef np.ndarray[np.float64_t, ndim=1] radius_coords, theta_coords, radius_warp
 
-   cdef np.ndarray[long, ndim=1] index
+   cdef np.ndarray[np.npy_intp, ndim=1] index
 
    cdef float theta_step, t_interp, i_pos, lower_weight, upper_weight, r_outer
    cdef int i_lower, i_upper, i

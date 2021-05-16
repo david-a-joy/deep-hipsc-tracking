@@ -54,6 +54,7 @@ ROOTDIR = THISDIR.parent / 'deep_hipsc_tracking' / 'data'
 
 # Classes
 
+
 class DataDownloader(object):
     """ Store metadata and urls for downloading data
 
