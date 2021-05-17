@@ -939,9 +939,9 @@ def calc_triangulated_stats(rootdir: pathlib.Path,
     else:
         for try_detector in [detector.lower(), detector.capitalize()]:
             trackdir_name = f'CellTracking-{try_detector}'
+            outdir_name = f'GridCellTracking-{try_detector.capitalize()}'
             if (rootdir / trackdir_name).is_dir():
                 break
-            outdir_name = f'GridCellTracking-{try_detector.capitalize()}'
 
     trackdir = rootdir / trackdir_name / 'Tracks'
     image_rootdir = rootdir / 'Corrected'
