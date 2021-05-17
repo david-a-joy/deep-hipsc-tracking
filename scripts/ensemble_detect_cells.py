@@ -250,7 +250,8 @@ class EnsembleDetectCells(object):
             if self.overwrite:
                 timing_log_file.unlink()
             else:
-                raise OSError(f'Cannot overwrite timing file {timing_log_file}')
+                # raise OSError(f'Cannot overwrite timing file {timing_log_file}')
+                pass
 
         cmd = [
             self.python_bin,
