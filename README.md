@@ -5,9 +5,9 @@ track their behavior over time.
 
 If you find this code useful, please cite:
 
-> Joy, D. A., Libby, A. R. G. & McDevitt, T. C. Deep neural net tracking of
-> human pluripotent stem cells reveals intrinsic behaviors directing morphogenesis.
-> https://www.biorxiv.org/content/10.1101/2020.09.21.307470v1 (2020) doi:10.1101/2020.09.21.307470.
+> Joy, D.A., Libby, A.R. and McDevitt, T.C., 2021. Deep neural net tracking of
+> human pluripotent stem cells reveals intrinsic behaviors directing
+> morphogenesis. Stem Cell Reports, 16(5), pp.1317-1330.
 
 ## Installing
 
