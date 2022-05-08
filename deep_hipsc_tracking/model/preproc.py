@@ -41,7 +41,7 @@ from typing import Tuple, Callable, Optional, List
 import numpy as np
 
 from scipy.ndimage import distance_transform_edt
-from scipy.ndimage.interpolation import map_coordinates
+from scipy.ndimage import map_coordinates
 
 import matplotlib.pyplot as plt
 
@@ -947,7 +947,7 @@ class BaseSampler(object):
 
         rows, cols = img.shape[:2]
 
-        mask = np.zeros((rows, cols, 1), dtype=np.bool)
+        mask = np.zeros((rows, cols, 1), dtype=bool)
 
         if self.masks is None:
             return mask
@@ -982,7 +982,7 @@ class BaseSampler(object):
 
         rows, cols = img.shape[:2]
 
-        mask = np.zeros((rows, cols, 1), dtype=np.bool)
+        mask = np.zeros((rows, cols, 1), dtype=bool)
 
         if self.masks is None:
             return mask
@@ -1334,7 +1334,7 @@ class RandomSampler(BaseSampler):
         if shift is None:
             shift = self.rnd.rand(2) * rng_shift
         else:
-            shift = np.array(shift, dtype=np.float)
+            shift = np.array(shift, dtype=np.float32)
         shift = np.squeeze(shift)[:, np.newaxis]
         final_shift = shift + rng_verts[..., np.newaxis]/2
 

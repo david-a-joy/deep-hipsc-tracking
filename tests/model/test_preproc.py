@@ -292,7 +292,7 @@ class TestCompositeMask(unittest.TestCase):
         srows, scols = 16, 16
 
         img = np.random.rand(32, 32, 3)
-        mask = np.zeros((32, 32), dtype=np.bool)
+        mask = np.zeros((32, 32), dtype=bool)
         mask[:4, :4] = 1
         mask[-4:, -4:] = 1
 
@@ -774,7 +774,7 @@ class TestRandomSampler(unittest.TestCase):
 
         self.assertEqual(out_mask.shape, (300, 300, 1))
 
-        exp_mask = np.zeros((300, 300, 1), dtype=np.bool)
+        exp_mask = np.zeros((300, 300, 1), dtype=bool)
         exp_mask[150:, :120, :] = True
         exp_mask[:30, 270:, :] = True
 
@@ -1005,7 +1005,7 @@ class TestRandomSampler(unittest.TestCase):
     def test_can_resample_mask_with_image_same_transform(self):
 
         img1 = np.random.rand(300, 300, 3)
-        img2 = np.zeros((300, 300), dtype=np.bool)
+        img2 = np.zeros((300, 300), dtype=bool)
         img2[10:-90, 10:-90] = False
 
         sampler = preproc.RandomSampler(files=[],

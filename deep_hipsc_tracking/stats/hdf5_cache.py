@@ -243,7 +243,7 @@ class HDF5PersistenceCache(BaseHDF5Cache):
                     'tt': np.array(subgroup['tt']),
                     'xx': np.array(subgroup['xx']),
                     'yy': np.array(subgroup['yy']),
-                    'mask': np.array(subgroup['mask'], dtype=np.bool),
+                    'mask': np.array(subgroup['mask'], dtype=bool),
                     'waveform': np.array(subgroup['waveform']),
                 })
             data[track_key] = PersistenceStats(**attrs)
@@ -278,8 +278,8 @@ class HDF5PersistenceCache(BaseHDF5Cache):
             subgroup.create_dataset('yy', data=track.yy)
             subgroup.create_dataset('mask', data=track.mask)
             subgroup.create_dataset('waveform', data=track.waveform)
-            subgroup.create_dataset('tidx', data=np.array(track.tidx, dtype=np.int))
-            subgroup.create_dataset('xidx', data=np.array(track.xidx, dtype=np.int))
+            subgroup.create_dataset('tidx', data=np.array(track.tidx, dtype=np.int64))
+            subgroup.create_dataset('xidx', data=np.array(track.xidx, dtype=np.int64))
 
 
 class HDF5CoordValueCache(BaseHDF5Cache):

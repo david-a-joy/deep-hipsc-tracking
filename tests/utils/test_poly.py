@@ -591,7 +591,7 @@ class TestPointsInPolygon(unittest.TestCase):
         ])
 
         res = poly.points_in_polygon(polygon, points)
-        exp = np.array([True, True, True, False, False], dtype=np.bool)
+        exp = np.array([True, True, True, False, False], dtype=bool)
 
         np.testing.assert_almost_equal(res, exp)
 
@@ -1115,7 +1115,7 @@ class TestMaskInPolygon(unittest.TestCase):
             [0, 1, 0, 1, 0],
             [0, 1, 1, 0, 0],
             [0, 0, 0, 0, 0],
-        ], dtype=np.bool)
+        ], dtype=bool)
         np.testing.assert_equal(res, exp)
 
     def test_with_square(self):
@@ -1137,7 +1137,7 @@ class TestMaskInPolygon(unittest.TestCase):
             [0, 1, 1, 0, 0],
             [0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0],
-        ], dtype=np.bool)
+        ], dtype=bool)
         np.testing.assert_equal(res, exp)
 
     def test_with_rectangle(self):
@@ -1165,7 +1165,7 @@ class TestMaskInPolygon(unittest.TestCase):
             [0, 1, 1, 0, 0, 0],
             [0, 1, 1, 0, 0, 0],
             [0, 1, 1, 0, 0, 0],
-        ], dtype=np.bool)
+        ], dtype=bool)
         np.testing.assert_equal(res, exp)
 
 

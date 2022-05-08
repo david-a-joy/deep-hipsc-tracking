@@ -1128,7 +1128,7 @@ class TestScorePoints(unittest.TestCase):
         test_y = np.array([1.1, 1.2, 1.3, 1.4])
         test_v = np.array([1.0, 1.0, 1.0, 1.0])
 
-        exp_real = np.array([True, True, True, True], dtype=np.bool)
+        exp_real = np.array([True, True, True, True], dtype=bool)
         exp_score = np.array([1.0, 1.0, 1.0, 1.0])
 
         res = stat_utils.score_points(
@@ -1147,7 +1147,7 @@ class TestScorePoints(unittest.TestCase):
         test_y = np.array([1.1, 1.2, 1.3])
         test_v = np.array([1.0, 1.0, 1.0])
 
-        exp_real = np.array([True, True, True], dtype=np.bool)
+        exp_real = np.array([True, True, True], dtype=bool)
         exp_score = np.array([1.0, 1.0, 1.0])
 
         res = stat_utils.score_points(
@@ -1166,7 +1166,7 @@ class TestScorePoints(unittest.TestCase):
         test_y = np.array([1.1, 1.2, 1.3])
         test_v = np.array([1.0, 1.0, 1.0])
 
-        exp_real = np.array([True, True, True, True, True], dtype=np.bool)
+        exp_real = np.array([True, True, True, True, True], dtype=bool)
         exp_score = np.array([1.0, 1.0, 1.0, 0.0, 0.0])
 
         res = stat_utils.score_points(
@@ -1185,7 +1185,7 @@ class TestScorePoints(unittest.TestCase):
         test_y = np.array([1.1, 1.2, 1.3, 1.4, 1.5])
         test_v = np.array([1.0, 1.0, 1.0, 0.9, 0.8])
 
-        exp_real = np.array([True, True, True, False, False], dtype=np.bool)
+        exp_real = np.array([True, True, True, False, False], dtype=bool)
         exp_score = np.array([1.0, 1.0, 1.0, 0.9, 0.8])
 
         res = stat_utils.score_points(
@@ -1204,7 +1204,7 @@ class TestScorePoints(unittest.TestCase):
         test_y = np.array([1.1, 1.2, 1.3, 1.4, 1.5])
         test_v = np.array([1.0, 1.0, 1.0, 0.9, 0.8])
 
-        exp_real = np.array([True, True, True, False, False], dtype=np.bool)
+        exp_real = np.array([True, True, True, False, False], dtype=bool)
         exp_score = np.array([1.0, 1.0, 1.0, 0.9, 0.8])
 
         res = stat_utils.score_points(
@@ -1223,7 +1223,7 @@ class TestScorePoints(unittest.TestCase):
         test_y = np.array([1.1, 1.2, 1.3, 1.4, 1.5])
         test_v = np.array([1.0, 1.1, 1.2, 0.9, 0.8])
 
-        exp_real = np.array([True, True, True, False, False, False, False], dtype=np.bool)
+        exp_real = np.array([True, True, True, False, False, False, False], dtype=bool)
         exp_score = np.array([1.0, 0.0, 0.0, 1.1, 1.2, 0.9, 0.8])
 
         res = stat_utils.score_points(

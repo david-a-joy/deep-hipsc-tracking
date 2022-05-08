@@ -194,8 +194,8 @@ class PointScore(object):
                                         cross_check=True)
         num_matches = matches.shape[0]
 
-        train_mask = np.zeros((self.train_xy.shape[0], ), dtype=np.bool)
-        test_mask = np.zeros((self.test_xy.shape[0], ), dtype=np.bool)
+        train_mask = np.zeros((self.train_xy.shape[0], ), dtype=bool)
+        test_mask = np.zeros((self.test_xy.shape[0], ), dtype=bool)
 
         train_mask[matches[:, 0]] = True
         test_mask[matches[:, 1]] = True
@@ -223,8 +223,8 @@ class PointScore(object):
         print('Recall:    {:.1%}'.format(self.recall))
 
         # Create the masks for ROC curves
-        y_real = np.zeros((num_total, ), dtype=np.bool)
-        y_score = np.zeros((num_total, ), dtype=np.float)
+        y_real = np.zeros((num_total, ), dtype=bool)
+        y_score = np.zeros((num_total, ), dtype=np.float64)
 
         y_real[:num_matches] = True
         y_score[:num_matches] = self.test_v[test_mask]
@@ -1415,11 +1415,12 @@ def load_points_from_maskfile(maskfile, cutoff=0.5, keep_scale=False, min_distan
         xx, yy = np.meshgrid(np.linspace(0.0, 1.0, cols),
                              np.linspace(1.0, 0.0, rows))
     mask = img >= cutoff
-    peak_mask = peak_local_max(img + np.random.ranf(img.shape)*1e-5,
+    peak_inds = peak_local_max(img + np.random.ranf(img.shape)*1e-5,
                                min_distance=min_distance,
-                               indices=False,
                                exclude_border=exclude_border,
                                labels=mask)
+    peak_mask = np.zeros_like(img, dtype=bool)
+    peak_mask[tuple(peak_inds.T)] = True
     return xx[peak_mask], yy[peak_mask], img[peak_mask]
 
 

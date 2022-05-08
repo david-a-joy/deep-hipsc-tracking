@@ -27,7 +27,7 @@ class TestPipelineStages(unittest.TestCase):
 
     def test_can_instantiate_class(self):
 
-        basedir = pathlib.Path('fake')
+        basedir = pathlib.Path('fake').resolve()
 
         obj = pipeline.ImagePipeline(basedir)
 

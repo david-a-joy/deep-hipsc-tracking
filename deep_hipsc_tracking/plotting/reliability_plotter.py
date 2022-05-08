@@ -168,7 +168,7 @@ class ReliabilityPlotter(object):
         score_data = self.score_data
         print('Size before filtering: {} rows'.format(score_data.shape[0]))
         for key, values in subset.items():
-            mask = np.zeros((score_data.shape[0], ), dtype=np.bool)
+            mask = np.zeros((score_data.shape[0], ), dtype=bool)
             if isinstance(values, (str, int, float)):
                 values = [values]
 

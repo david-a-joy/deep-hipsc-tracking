@@ -7,7 +7,7 @@ cimport numpy as np
 
 cimport cython
 
-INT_TYPE = np.int
+INT_TYPE = np.int32
 FLOAT_TYPE = np.float64
 
 ctypedef np.uint32_t INT_TYPE_t

@@ -198,10 +198,10 @@ def merge_points_pairwise(points1: np.ndarray,
 
     match1, match2 = link_functions.pair_tracks_balltree(points1, points2, max_dist=max_dist)
 
-    unmatched1 = np.ones(points1.shape[0], dtype=np.bool)
+    unmatched1 = np.ones(points1.shape[0], dtype=bool)
     unmatched1[match1] = 0
 
-    unmatched2 = np.ones(points2.shape[0], dtype=np.bool)
+    unmatched2 = np.ones(points2.shape[0], dtype=bool)
     unmatched2[match2] = 0
 
     points_merge = (points1[match1, :] + points2[match2, :])/2

@@ -29,7 +29,7 @@ from typing import Tuple, List, Optional
 # 3rd party
 import numpy as np
 
-from scipy.ndimage.measurements import label
+from scipy.ndimage import label
 from scipy.interpolate import UnivariateSpline, interp1d
 
 from skimage.morphology import remove_small_holes, remove_small_objects
@@ -415,7 +415,7 @@ def find_flat_regions(tt: np.ndarray,
     slopes = rolling_slope(tt, tt, yy, interp_points)
 
     # Find all slopes smaller than the cutoff and then convert to individual masks
-    mask = (np.abs(slopes) < cutoff).astype(np.bool)
+    mask = (np.abs(slopes) < cutoff).astype(bool)
     if np.any(mask) and not np.all(mask):
         mask = remove_small_objects(mask, noise_points)
         mask = remove_small_holes(mask, noise_points)

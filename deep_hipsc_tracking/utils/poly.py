@@ -39,7 +39,7 @@ from typing import Tuple, Dict, List, Optional, Callable
 # 3rd party
 import numpy as np
 
-from scipy.spatial import Delaunay, qhull, ConvexHull
+from scipy.spatial import Delaunay, QhullError, ConvexHull
 
 from matplotlib.path import Path
 
@@ -197,7 +197,7 @@ class GridValueExtractor(object):
             The values at those points, one per image
         """
 
-        points = np.round(points).astype(np.int)
+        points = np.round(points).astype(int)
 
         values = []
         for img in self.images:
@@ -226,7 +226,7 @@ class GridValueExtractor(object):
 
         contains = path.contains_points(test_points).reshape(xx.shape)
 
-        all_contains = np.zeros_like(self.xx, dtype=np.bool)
+        all_contains = np.zeros_like(self.xx, dtype=bool)
         all_contains[xi:xj, yi:yj] = contains
         return all_contains
 
@@ -432,7 +432,7 @@ def calc_delaunay_adjacency(track: np.ndarray,
 
     try:
         sindex = Delaunay(track)
-    except qhull.QhullError:
+    except QhullError:
         return {}, set(), []
 
     # Drop into cython to unpack and filter the triangles

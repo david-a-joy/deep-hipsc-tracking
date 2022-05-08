@@ -53,7 +53,7 @@ def _add_links_for_radius(track1, track2, max_dist=MAX_DIST):
     point_i, point_dist = tree.query_radius(track2, r=max_dist,
                                             count_only=False,
                                             return_distance=True)
-    point_j = np.arange(track2.shape[0]).astype(np.int)
+    point_j = np.arange(track2.shape[0]).astype(np.int64)
 
     for j in point_j:
         i, d = point_i[j], point_dist[j]
@@ -134,12 +134,12 @@ def postprocess_delaunay(track1, track2, tindex1, tindex2, min_points=10, max_di
         tindex2to1[ind2] = ind1
 
     # Work out the set of unpaired points for each track
-    paired1_mask = np.zeros(track1.shape[:1], dtype=np.bool)
+    paired1_mask = np.zeros(track1.shape[:1], dtype=bool)
     paired1_mask[tindex1] = 1
     unpaired1_mask = ~paired1_mask
     unpaired1 = np.arange(track1.shape[0])[unpaired1_mask]
 
-    paired2_mask = np.zeros(track2.shape[:1], dtype=np.bool)
+    paired2_mask = np.zeros(track2.shape[:1], dtype=bool)
     paired2_mask[tindex2] = 1
     unpaired2_mask = ~paired2_mask
     unpaired2 = np.arange(track2.shape[0])[unpaired2_mask]

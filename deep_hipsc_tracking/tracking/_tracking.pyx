@@ -6,7 +6,7 @@ cimport numpy as np
 from sklearn.neighbors import BallTree
 
 BOOL_TYPE = np.uint8
-INT_TYPE = np.int
+INT_TYPE = np.int32
 FLOAT_TYPE = np.float32
 
 ctypedef np.uint32_t INT_TYPE_t
@@ -73,15 +73,15 @@ def link_chains(int tp2, np.ndarray t2,
     cdef INT_TYPE_t i1, i2, chain_idx, max_index
     cdef list chain
 
-    ind1 = ind1.astype(np.int)
-    ind2 = ind2.astype(np.int)
+    ind1 = ind1.astype(np.int32)
+    ind2 = ind2.astype(np.int32)
     assert ind1.shape[0] == ind2.shape[0]
     max_index = index.shape[0]
 
     new_index = np.empty((t2.shape[0], ), dtype=np.uint32)
 
     # Load all the old points
-    new_mask = np.ones((t2.shape[0], ), dtype=np.bool)
+    new_mask = np.ones((t2.shape[0], ), dtype=bool)
     new_mask[ind2] = False
 
     for i1, i2 in zip(ind1, ind2):

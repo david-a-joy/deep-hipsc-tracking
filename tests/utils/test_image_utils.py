@@ -431,7 +431,7 @@ class TestToJSONTypes(unittest.TestCase):
 
         self.assertEqual(res, exp)
 
-        data = np.array([0, 1, 0, 0], dtype=np.bool)
+        data = np.array([0, 1, 0, 0], dtype=bool)
 
         res = image_utils.to_json_types(data)
         exp = [0, 1, 0, 0]

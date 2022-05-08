@@ -50,7 +50,7 @@ class TestFindFlatRegions(unittest.TestCase):
         yy = tt * 2
 
         res = tracking.find_flat_regions(tt, yy, interp_points=10, cutoff=10, noise_points=5)
-        exp = [np.ones((100, ), dtype=np.bool)]
+        exp = [np.ones((100, ), dtype=bool)]
 
         msg = 'Got {} rois expected {}'.format(len(res), len(exp))
         self.assertEqual(len(res), len(exp), msg)
@@ -78,7 +78,7 @@ class TestFindFlatRegions(unittest.TestCase):
         res = tracking.find_flat_regions(tt, yy, interp_points=5, cutoff=1, noise_points=1)
         exp = []
         for i in range(0, 100, 10):
-            mask = np.zeros((100, ), dtype=np.bool)
+            mask = np.zeros((100, ), dtype=bool)
             if i == 0:
                 mask[i:i+8] = 1
             elif i == 90:

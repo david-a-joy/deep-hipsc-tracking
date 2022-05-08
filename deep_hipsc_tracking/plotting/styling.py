@@ -503,13 +503,13 @@ class colorwheel(mplcolors.Colormap):
             return color_left*frac + color_right*(1.0 - frac)
         elif isinstance(X, np.ndarray):
             max_color = self.n_colors
-            if X.dtype in (np.float, np.float32, np.float64):
+            if X.dtype in (float, np.float32, np.float64):
                 X[X < 0.0] = 0.0
                 X[X > 1.0] = 1.0
 
                 n_color = X * (max_color - 1)
-                n_color_low = np.floor(n_color).astype(np.int)
-                n_color_high = np.ceil(n_color).astype(np.int)
+                n_color_low = np.floor(n_color).astype(int)
+                n_color_high = np.ceil(n_color).astype(int)
 
                 n_color_low[n_color_low < 0] = 0
                 n_color_high[n_color_high < 0] = 0
@@ -521,7 +521,7 @@ class colorwheel(mplcolors.Colormap):
                 colors_left = np.array([self.color_table[i] for i in n_color_low])
                 colors_right = np.array([self.color_table[i] for i in n_color_high])
                 colors = (colors_left*frac + colors_right*(1.0 - frac))
-                alpha = np.ones((colors.shape[0], 1), dtype=np.float)
+                alpha = np.ones((colors.shape[0], 1), dtype=np.float64)
                 colors = np.concatenate([colors, alpha], axis=1)
                 return colors
             else:

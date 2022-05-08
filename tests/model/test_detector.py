@@ -16,7 +16,7 @@ from deep_hipsc_tracking.model._keras import _import_keras
 from deep_hipsc_tracking.model import detector, preproc
 
 Input = _import_keras('layers.Input')
-Convolution2D = _import_keras('layers.convolutional.Convolution2D')
+Convolution2D = _import_keras('layers.Convolution2D')
 Model = _import_keras('models.Model')
 Adam = _import_keras('optimizers.Adam')
 
@@ -59,7 +59,7 @@ class FakeModel(detector.DetectorBase):
         net = Convolution2D(4, (16, 16))(input_net)
 
         detector = Model(input_net, net)
-        detector.compile(loss='mae', optimizer=Adam(lr=1e-4))
+        detector.compile(loss='mae', optimizer=Adam(learning_rate=1e-4))
         self.detector = detector
 
     def make_sampler(self, datadir, x_shape, y_shape):

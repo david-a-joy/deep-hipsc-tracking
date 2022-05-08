@@ -39,7 +39,7 @@ from PIL import Image
 
 from skimage import exposure, measure, filters
 
-from scipy.ndimage.morphology import binary_erosion
+from scipy.ndimage import binary_erosion
 
 # Functions
 
@@ -69,7 +69,7 @@ def contours_from_mask(mask: np.ndarray,
         raise ValueError(f'Only 2D masks supported, got shape: {mask.shape}')
 
     if max_level is None and min_level is None:
-        mask = mask.astype(np.bool)
+        mask = mask.astype(bool)
     elif min_level is None:
         mask = mask <= max_level
     elif max_level is None:
@@ -105,7 +105,7 @@ def mask_from_contours(contours: List[np.ndarray],
 
     rows, cols = shape
 
-    final_mask = np.zeros((rows, cols), dtype=np.bool)
+    final_mask = np.zeros((rows, cols), dtype=bool)
     for contour in contours:
         contour[contour < 0] = 0
         contour[contour[:, 0] > cols, 0] = cols
@@ -231,7 +231,7 @@ def fix_contrast(img: np.ndarray,
         img[img > 255] = 255
         img = img.astype(np.uint8)
 
-        img = filters.median(img, selem=np.ones((filter_size, filter_size)))
+        img = filters.median(img, footprint=np.ones((filter_size, filter_size)))
         img = img.astype(np.float64) / 255
 
     # Allow different equalization methods
@@ -361,7 +361,7 @@ def align_timepoints(agg_data: Dict, agg_timepoints: List) -> Dict:
         for i, rec in enumerate(agg_data[key]):
             timepoint = agg_timepoints[i]
             timepoint_mask = np.in1d(full_timepoints, timepoint)
-            final_rec = np.full_like(full_timepoints, np.nan, dtype=np.float)
+            final_rec = np.full_like(full_timepoints, np.nan, dtype=np.float64)
             final_rec[timepoint_mask] = rec
             final_recs.append(final_rec)
         final_data[key] = np.array(final_recs)

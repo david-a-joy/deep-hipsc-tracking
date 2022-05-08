@@ -150,7 +150,7 @@ class PersistenceData(object):
             # Load whole array properties
             obj.timeline = np.array(db['timeline'])
             obj.waveform = np.array(db['waveform'])
-            obj.mask = np.array(db['mask'], dtype=np.bool)
+            obj.mask = np.array(db['mask'], dtype=bool)
 
         finally:
             if needs_closing:
@@ -317,7 +317,7 @@ class PersistenceData(object):
 
         # Calculate useful metrics based on the ROIs
         persistence_waveform = np.full_like(self.sm_tt, np.nan)
-        persistence_mask = np.zeros_like(self.sm_tt, dtype=np.bool)
+        persistence_mask = np.zeros_like(self.sm_tt, dtype=bool)
         wv_dv = np.append(self.sm_dv, np.array([self.sm_dv[-1]]))
 
         persistence_times = []

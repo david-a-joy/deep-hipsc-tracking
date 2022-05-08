@@ -247,7 +247,7 @@ class DetectorBase(object):
         """
         if learning_rate is None:
             learning_rate = self.learning_rate
-        self.opt = Adam(lr=learning_rate)
+        self.opt = Adam(learning_rate=learning_rate)
 
     def sample_data(self, size: int = BATCH_SIZE, mode: str = 'train'):
         """ Create a vector of samples

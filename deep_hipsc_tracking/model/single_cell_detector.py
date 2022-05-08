@@ -32,25 +32,25 @@ from skimage.feature import peak_local_max
 from skimage.measure import block_reduce
 
 # Our own imports
-from ._keras import _import_keras, _import_keras_vis
+from ._keras import _import_keras
 
 Input, Activation, Dropout, Lambda = _import_keras(
     'Input', 'Activation', 'Dropout', 'Lambda', module='layers')
-BatchNormalization = _import_keras('layers.normalization.BatchNormalization')
+BatchNormalization = _import_keras('layers.BatchNormalization')
 Convolution2D, ZeroPadding2D, UpSampling2D, Cropping2D = _import_keras(
     'Convolution2D', 'ZeroPadding2D', 'UpSampling2D', 'Cropping2D',
-    module='layers.convolutional')
+    module='layers')
 LeakyReLU, ELU = _import_keras(
-    'LeakyReLU', 'ELU', module='layers.advanced_activations')
+    'LeakyReLU', 'ELU', module='layers')
 Concatenate, Add = _import_keras(
-    'Concatenate', 'Add', module='layers.merge')
+    'Concatenate', 'Add', module='layers')
 MaxPooling2D, AveragePooling2D = _import_keras(
-    'MaxPooling2D', 'AveragePooling2D', module='layers.pooling')
+    'MaxPooling2D', 'AveragePooling2D', module='layers')
 K = _import_keras('backend')
 Model = _import_keras('models.Model')
 
-ActivationMaximization = _import_keras_vis('losses.ActivationMaximization')
-Optimizer = _import_keras_vis('optimizer.Optimizer')
+# ActivationMaximization = _import_keras_vis('losses.ActivationMaximization')
+# Optimizer = _import_keras_vis('optimizer.Optimizer')
 
 from ..utils import save_point_csvfile, save_image
 from ..plotting import set_plot_style, add_colorbar
@@ -795,73 +795,73 @@ class SingleCellDetector(DetectorBase):
         print(f'Final shape: {y.shape}')
         return y
 
-    def visualize_saliency(self, image_file, outdir):
-        """ Dump the saliency maps from the layer
-
-        :param Path image_file:
-            The path to an image file in the training data
-        :param Path outdir:
-            The directory to save the plots to
-        """
-        if image_file in self.x_train.files:
-            img = self.x_train.load_file(image_file)
-        else:
-            img = self.x_test.load_file(image_file)
-
-        img = img[104:136, 157:189, :]
-        img = img[np.newaxis, ...]
-
-        assert img.shape == (1, IMG_ROWS, IMG_COLS, IMG_COLORS)
-
-        if outdir.is_dir():
-            shutil.rmtree(str(outdir))
-        outdir.mkdir(exist_ok=True, parents=True)
-
-        # Batch norms break the layer visualization
-        self.make_detector(detector='countception', skip_batch_norm=True)
-        model = self.detector
-
-        def get_filter_output(layer_idx, filter_indices):
-            # Stolen from their garbage code
-            # `ActivationMaximization` loss reduces as outputs get large, hence negative gradients indicate the direction
-            # for increasing activations. Multiply with -1 so that positive gradients indicate increase instead.
-            wrt_tensor = None
-            grad_modifier = 'absolute'
-            losses = [
-                (ActivationMaximization(model.layers[layer_idx], filter_indices), -1)
-            ]
-            opt = Optimizer(model.input, losses, wrt_tensor=wrt_tensor, norm_grads=False)
-            grads = opt.minimize(seed_input=img, max_iter=1, grad_modifier=grad_modifier, verbose=False)[1]
-            channel_idx = -1
-            return np.max(grads, axis=channel_idx)
-
-        target_layers = [i for i, l in enumerate(model.layers) if isinstance(l, LeakyReLU)]
-        for layer_number in target_layers:
-            num_filters = model.layers[layer_number].output_shape[-1]
-            print('Layer {} has {} filters'.format(layer_number, num_filters))
-
-            grad_targets = [(None, 'layer{:02d}_combined'.format(layer_number))]
-
-            for filter_index, title in grad_targets:
-                grads = get_filter_output(layer_number, filter_index)
-                assert grads.shape == (1, IMG_ROWS, IMG_COLS)
-
-                with set_plot_style(PLOT_STYLE) as style:
-                    fig, (ax1, ax2) = plt.subplots(1, 2)
-
-                    ax1.imshow(img[0, :, :, 0], cmap='viridis')
-                    ax2.imshow(grads[0, :, :], cmap='inferno')
-
-                    ax1.set_xticks([])
-                    ax1.set_yticks([])
-
-                    ax2.set_xticks([])
-                    ax2.set_yticks([])
-
-                    fig.suptitle(title)
-                    style.savefig(str(outdir / '{}.png'.format(title)),
-                                  transparent=True)
-                    plt.close()
+    # def visualize_saliency(self, image_file, outdir):
+    #     """ Dump the saliency maps from the layer
+    #
+    #     :param Path image_file:
+    #         The path to an image file in the training data
+    #     :param Path outdir:
+    #         The directory to save the plots to
+    #     """
+    #     if image_file in self.x_train.files:
+    #         img = self.x_train.load_file(image_file)
+    #     else:
+    #         img = self.x_test.load_file(image_file)
+    #
+    #     img = img[104:136, 157:189, :]
+    #     img = img[np.newaxis, ...]
+    #
+    #     assert img.shape == (1, IMG_ROWS, IMG_COLS, IMG_COLORS)
+    #
+    #     if outdir.is_dir():
+    #         shutil.rmtree(str(outdir))
+    #     outdir.mkdir(exist_ok=True, parents=True)
+    #
+    #     # Batch norms break the layer visualization
+    #     self.make_detector(detector='countception', skip_batch_norm=True)
+    #     model = self.detector
+    #
+    #     def get_filter_output(layer_idx, filter_indices):
+    #         # Stolen from their garbage code
+    #         # `ActivationMaximization` loss reduces as outputs get large, hence negative gradients indicate the direction
+    #         # for increasing activations. Multiply with -1 so that positive gradients indicate increase instead.
+    #         wrt_tensor = None
+    #         grad_modifier = 'absolute'
+    #         losses = [
+    #             (ActivationMaximization(model.layers[layer_idx], filter_indices), -1)
+    #         ]
+    #         opt = Optimizer(model.input, losses, wrt_tensor=wrt_tensor, norm_grads=False)
+    #         grads = opt.minimize(seed_input=img, max_iter=1, grad_modifier=grad_modifier, verbose=False)[1]
+    #         channel_idx = -1
+    #         return np.max(grads, axis=channel_idx)
+    #
+    #     target_layers = [i for i, l in enumerate(model.layers) if isinstance(l, LeakyReLU)]
+    #     for layer_number in target_layers:
+    #         num_filters = model.layers[layer_number].output_shape[-1]
+    #         print('Layer {} has {} filters'.format(layer_number, num_filters))
+    #
+    #         grad_targets = [(None, 'layer{:02d}_combined'.format(layer_number))]
+    #
+    #         for filter_index, title in grad_targets:
+    #             grads = get_filter_output(layer_number, filter_index)
+    #             assert grads.shape == (1, IMG_ROWS, IMG_COLS)
+    #
+    #             with set_plot_style(PLOT_STYLE) as style:
+    #                 fig, (ax1, ax2) = plt.subplots(1, 2)
+    #
+    #                 ax1.imshow(img[0, :, :, 0], cmap='viridis')
+    #                 ax2.imshow(grads[0, :, :], cmap='inferno')
+    #
+    #                 ax1.set_xticks([])
+    #                 ax1.set_yticks([])
+    #
+    #                 ax2.set_xticks([])
+    #                 ax2.set_yticks([])
+    #
+    #                 fig.suptitle(title)
+    #                 style.savefig(str(outdir / '{}.png'.format(title)),
+    #                               transparent=True)
+    #                 plt.close()
 
     def visualize_weights(self, image_file, outdir):
         """ Dump weights from a layer on an example image

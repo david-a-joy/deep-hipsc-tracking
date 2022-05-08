@@ -262,7 +262,7 @@ def load_track(csvfile: pathlib.Path,
                 continue
         fx.append(x)
         fy.append(y)
-    return img, np.array(fx, dtype=np.float), np.array(fy, dtype=np.float)
+    return img, np.array(fx, dtype=np.float64), np.array(fy, dtype=np.float64)
 
 
 def filter_by_link_dist(tracks: List[Link], max_link_dist: float = MAX_LINK_DIST):
@@ -298,7 +298,7 @@ def filter_by_link_dist(tracks: List[Link], max_link_dist: float = MAX_LINK_DIST
         else:
             tree_fwd = None
 
-        okay = np.ones((points_cur.shape[0], 1), dtype=np.bool)
+        okay = np.ones((points_cur.shape[0], 1), dtype=bool)
 
         if points_cur.shape[0] > 0:
             if tree_fwd is not None:

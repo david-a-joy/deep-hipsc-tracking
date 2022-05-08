@@ -234,7 +234,7 @@ def plot_top_k_waveforms(timelines: List[np.ndarray],
 
             # Mask timepoint boundaries if requested
             if max_timepoint is None:
-                tp_mask = np.ones_like(timeline, dtype=np.bool)
+                tp_mask = np.ones_like(timeline, dtype=bool)
             else:
                 tp_mask = timeline <= max_timepoint
             if min_timepoint is not None:
