@@ -133,7 +133,7 @@ class ConfocalPreset(BasePreset):
         'peak_sharpness': 8,  # pixels - radius of the cone around detections
         'exclude_border': 5,  # pixels - number of border pixels to ignore
         'detection_threshold': 0.01,  # Minimum pixel value for cell detection
-        'skip_gpu_check': False,  # If True, don't check for a GPU before running
+        'skip_gpu_check': True,  # If True, don't check for a GPU before running
         'detectors': ['countception', 'residual_unet', 'fcrn_b_wide', 'composite'],
     }
     tracking = {
